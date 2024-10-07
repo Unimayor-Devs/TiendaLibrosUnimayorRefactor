@@ -1,0 +1,213 @@
+/* SignInScreen.css */
+
+/* Fondo blanco */
+.signin-container {
+    background-color: #fff;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .blue-rectangle {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 66vw;
+    height: 100vh;
+    background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1235.853" height="950.016" viewBox="0 0 1235.853 950.016"><defs><linearGradient id="linear-gradient" x1="1" x2="0" y2="1" gradientUnits="objectBoundingBox"><stop offset="0" stop-color="%23030839"/><stop offset="1" stop-color="%2306005e"/></linearGradient></defs><path id="Trazado_1" data-name="Trazado 1" d="M0,950.526S443.32,893.5,690.44,853.94s331.771-30.292,393.336-227.967S1234.737,1.579,1234.737,1.579H0Z" transform="translate(0.5 -1.079)" stroke="%23070770" stroke-width="1" fill="url(%23linear-gradient)"/></svg>') no-repeat center center;
+    background-size: cover;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-left: 20px;
+    z-index: 5;
+  }
+  
+  /* Estilo para el botón de retroceso */
+.back-button {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+    position: absolute; /* Permite colocar el botón en una posición fija en la pantalla */
+    top: 50px; /* Distancia de 50px desde la parte superior */
+    left: 50px; /* Distancia de 50px desde la parte izquierda */
+    display: flex; /* Alinea el icono y el texto horizontalmente */
+    align-items: center; /* Centra verticalmente los elementos */
+    padding: 10px 20px; /* Añadido para aumentar el área clicable */
+    transition: opacity 0.3s ease; /* Transición para el efecto hover */
+    z-index: 1000; /* Asegura que el botón esté encima de otros elementos */
+  }
+  
+  /* Efecto al pasar el cursor sobre el botón */
+  .back-button:hover {
+    opacity: 0.8;
+  }
+  
+  /* Efecto cuando el botón está enfocado (accesibilidad) */
+  .back-button:focus {
+    outline: none; /* Elimina el borde predeterminado del enfoque */
+    border: 2px solid #050254; /* Borde personalizado al enfocar el botón */
+  }
+  
+  .back-text {
+    font-size: 16px; /* Tamaño del texto */
+    margin-left: 8px; /* Espacio entre el icono y el texto */
+  }
+  
+  /* Asegura que el icono tenga un tamaño adecuado */
+  .back-button svg {
+    font-size: 24px; /* Tamaño del ícono */
+  }
+  
+  
+
+.logo-text {
+    color: white;
+    display: flex; /* Mantén el display flex para alinear el logo y los textos horizontalmente */
+    align-items: center; /* Centra el logo y los textos verticalmente */
+    position: absolute; /* Ubicación absoluta para posicionar libremente */
+    left: 0; /* Separación de 130px desde la izquierda */
+    top: 55px; /* Separación de 55px desde la parte superior */
+  }
+  
+  /* Estilo para el logo */
+  .logo {
+    max-width: 100px;
+    margin-right: 10px; /* Espacio entre el logo y los textos */
+  }
+  
+  /* Contenedor para los textos */
+  .text-container {
+    display: flex;
+    flex-direction: column; /* Alinea los textos en columna (uno sobre otro) */
+    margin-top: 5px; /* Puedes ajustar esta distancia si lo necesitas */
+  }
+  
+  /* Estilo para los textos */
+  .site-name {
+    font-size: 18px;
+  }
+  
+  .sign-in-text {
+    font-size: 40px;
+    margin-top: 10px;
+    font-weight: bold;
+  }
+
+    .decorative-image {
+        position: absolute;
+        top: 220px; /* 55px de separación desde arriba + 82px de la distancia vertical desde logo-text */
+        left: 300px; /* Distancia desde la izquierda */
+        width: 650px; /* Ancho de la imagen */
+        height: 400px; /* Alto de la imagen */
+        border-radius: 60px; /* Bordes redondeados */
+    }
+  
+  
+/* Contenedor del Formulario */
+.form-container {
+    position: absolute;  /* Permite moverlo en cualquier parte de la pantalla */
+    top: 270px;  /* Distancia de 220px desde la parte superior */
+    right: 100px;  /* Distancia de 200px desde la derecha */
+    display: flex;
+    justify-content: flex-end;
+    padding: 20px;
+    /*background-color: #0055a5;*/
+  }
+  
+  .signin-form {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 8px;
+    width: 400px;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  
+  .input-group {
+    margin-bottom: 30px;
+    position: relative;
+  }
+  
+  .input-icon {
+    position: absolute;
+    top: 12px;
+    left: 20px;
+    font-size: 18px;
+    color: #050254;
+  }
+  
+/* Estilo para el campo de entrada */
+.input-field {
+    width: 100%;  /* Asegura que el campo de entrada ocupe todo el ancho disponible del contenedor */
+    padding: 12px 10px;
+    padding-left: 50px;
+    border: 1px solid #ccc;
+    border-radius: 30px;
+    font-size: 16px;
+    font-weight: bold;
+    box-sizing: border-box;  /* Asegura que el padding y el borde no hagan que el input se desborde */
+    color: #05025480;  /* Establece el color predeterminado del texto */
+    transition: color 0.3s ease;  /* Añadido para una transición suave al cambiar el color */
+  }
+  
+  /* Cuando el campo tiene texto escrito */
+  .input-field:not(:placeholder-shown) {
+    color: #050254;  /* Color cuando hay texto */
+  }
+
+
+  
+  /* Estilo para el texto del placeholder */
+  .input-field::placeholder {
+    color: #05025480;  /* Color del texto del placeholder (cuando no hay texto escrito) */
+  }  
+  
+  .toggle-password {
+    position: absolute;
+    right: 20px;
+    top: 12px;
+    font-size: 20px;
+    cursor: pointer;
+    color: #050254;
+}
+  
+  .submit-button {
+    background-color: #050254;
+    border: none;
+    color: #FFFFFF;
+    font-size: 16px;
+    padding: 10px 30px;
+    border-radius: 25px;
+    cursor: pointer;
+    font-weight: normal;
+    transition: background-color 0.3s ease;
+    align-self: center;
+  }  
+  
+  .submit-button:hover {
+    background-color: #040242;
+  }
+  
+  .forgot-password-link {
+    text-align: center;
+    margin-top: 25px;
+    font-weight: bold;
+  }
+  
+  .forgot-password-link a {
+    color: #050254;
+    text-decoration: underline;
+  }
+  
+  .error-message {
+    color: red;
+    font-size: 14px;
+    text-align: center;
+    margin-top: 10px;
+  }
+
+  

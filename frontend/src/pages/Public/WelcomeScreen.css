@@ -1,0 +1,156 @@
+.welcome-container {
+  display: flex;
+  justify-content: space-between;
+  width: 100vw;
+  height: 100vh;
+  background-color: #FFFFFF;
+  position: relative;
+}
+
+.white-background {
+  position: relative;
+  height: 100vh;
+  width: 100%;
+}
+
+.carousel-container {
+  position: absolute;
+  top: 20%; 
+  right: 400px;
+  transform: translateX(-50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 400px; 
+  height: 200px; 
+  overflow: visible; 
+  z-index: 10;
+}
+
+.carousel-image {
+  position: absolute; 
+  top: 0;
+  left: 0;
+  width: 850px;
+  height: 500px;
+  object-fit: cover;
+  border-radius: 60px;
+  transition: opacity 1s ease, transform 1s ease;
+  z-index: 0;
+}
+
+.carousel-image.front {
+  z-index: 10; 
+  opacity: 1;
+  filter: blur(0);
+  transform: scale(1.0); 
+}
+
+.carousel-image.middle {
+  z-index: 5;  
+  opacity: 0.8;
+  filter: blur(3px); 
+  transform: scale(1) translate(40px, 30px); 
+}
+
+.carousel-image.back {
+  z-index: 0;  
+  opacity: 0.5;
+  filter: blur(5px); 
+  transform: scale(1) translate(60px, 60px); 
+}
+
+.auth-buttons {
+  position: absolute;
+  top: 105px;
+  right: 200px;
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  z-index: 10;
+}
+
+.auth-btn {
+  background-color: #050254;
+  border: none;
+  color: #FFFFFF;
+  font-size: 18px;
+  padding: 10px 20px;
+  border-radius: 25px;
+  cursor: pointer;
+  font-weight: normal;
+  transition: background-color 0.3s ease;
+}
+
+.auth-btn:hover {
+  background-color: #06005E;
+}
+
+.auth-btn:focus {
+  outline: none;
+}
+
+.blue-rectangle {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 66vw;
+  height: 100vh;
+  background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1235.853" height="950.016" viewBox="0 0 1235.853 950.016"><defs><linearGradient id="linear-gradient" x1="1" x2="0" y2="1" gradientUnits="objectBoundingBox"><stop offset="0" stop-color="%23030839"/><stop offset="1" stop-color="%2306005e"/></linearGradient></defs><path id="Trazado_1" data-name="Trazado 1" d="M0,950.526S443.32,893.5,690.44,853.94s331.771-30.292,393.336-227.967S1234.737,1.579,1234.737,1.579H0Z" transform="translate(0.5 -1.079)" stroke="%23070770" stroke-width="1" fill="url(%23linear-gradient)"/></svg>') no-repeat center center;
+  background-size: cover;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-left: 20px;
+  z-index: 5;
+}
+
+
+.logo {
+  width: 94px;
+  height: 94px;
+  margin-left: 300px;
+  margin-bottom: 0px;
+  margin-top: 0px;
+}
+
+.text-1 {
+  font-size: 24px;
+  color: #FFFFFF;
+  margin-left: 300px;
+  font-weight: normal;
+  margin-bottom: 0px;
+}
+
+.text-2 {
+  font-size: 52px;
+  color: #FFFFFF;
+  margin-left: 300px;
+  font-weight: bold;
+  max-width: 40%;
+  word-break: break-word;
+  margin-bottom: 0px; 
+}
+
+.text-3 {
+  font-size: 18px;
+  color: #FFFFFF;
+  margin-left: 300px;
+  font-weight: lighter;
+  margin-bottom: 50px;  
+}
+
+
+.explore-btn {
+  width: 178px;
+  height: 45px;
+  background-color: #FFFFFF;
+  border-radius: 23px;
+  border: none;
+  color: #050254;
+  font-size: 21px;
+  font-weight: bold;
+  margin-left: 300px;
+  margin-top: 20px;
+  cursor: pointer;
+}
