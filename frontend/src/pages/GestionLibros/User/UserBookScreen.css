@@ -1,0 +1,477 @@
+.book-container {
+  max-width: 180vh;
+  margin: 0 auto;
+}
+
+.titleAdd {
+  font-size: 2rem;
+  color: #050254;
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+
+.search-filter {
+  display: flex;
+  gap: 3vh;
+  margin-bottom: 20px;
+}
+
+.search-bar {
+  width: 52vh;
+  padding: 10px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 50px;
+}
+
+.filter-button {
+  background-color: transparent;
+  color: #050254;
+  border: 1px solid #050254;
+  padding: 5px 15px;
+  font-size: 1rem;
+  border-radius: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.filter-button svg {
+  margin-left: 5px;
+}
+
+.filter-button:hover {
+  background-color: #050254;
+  color: white;
+}
+
+.book-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* Tres columnas para mostrar tres libros */
+  gap: 8vh; /* Espacio entre las columnas */
+}
+
+.book-card {
+  padding: 20px;
+  border-radius: 16px; /* Bordes redondeados */
+  background-color: #fff; /* Fondo blanco */
+  box-shadow: 4px 8px 8px rgba(0, 0, 0, 0.5); /* Sombra sutil */
+  display: flex;
+  flex-direction: column; /* Permite que los elementos dentro de la tarjeta se distribuyan verticalmente */
+  justify-content: space-between; /* Distribuye los elementos verticalmente */
+  height: 100%; /* Asegura que el botón se mantenga al fondo de la tarjeta */
+}
+
+.book-row {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 0px; /* Reducir la distancia entre book-row y sinopsis */
+}
+
+.book-synopsis {
+  color: #050254;
+  margin-bottom: 0px; /* Reducir la distancia entre book-row y sinopsis */
+}
+
+.book-synopsis-description {
+  margin-bottom: 0px; /* Reducir la distancia entre book-row y sinopsis */
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.book-image {
+  flex: 0 0 120px; /* Columna de imagen con un ancho fijo */
+  margin-top: 2vh;
+  margin-right: 20px; /* Espacio entre la imagen y los detalles */
+}
+
+.book-cover {
+  width: 120px;
+  height: 180px;
+  object-fit: cover;
+  display: block; /* Asegurarse de que la imagen se comporte como bloque */
+}
+
+.book-details {
+  margin-top: 0vh;
+}
+
+.book-title {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #050254; /* Azul oscuro */
+  margin-bottom: 10px;
+}
+
+.book-details p strong {
+  color: #050254; /* Color de los títulos */
+}
+
+.book-synopsis {
+  color: #050254; /* Color del título de la sinopsis */
+  margin-top: 10px;
+}
+
+.book-synopsis-description {
+  margin-top: 10px; /* Saltar un renglón entre el título de sinopsis y la descripción */
+  color: #666; /* Color de la descripción */
+  font-size: 0.9rem;
+}
+
+/* Estilo del botón "Comprar" */
+.buy-button {
+  background-color: #050254; /* Azul oscuro */
+  color: white;
+  padding: 10px 20px; /* Un poco más de espacio alrededor del contenido */
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1rem;
+  width: fit-content; /* El botón se ajusta al tamaño de su contenido */
+  margin-top: auto; /* Mantiene el botón en la parte inferior de la tarjeta */
+  margin-bottom: 2vh; /* Añade 2vh de espacio desde el fondo de la tarjeta */
+  align-self: center;
+  border-radius: 50px;
+}
+
+/* Estilos para el contenedor de botones de administración */
+.admin-buttons {
+  display: flex; /* Alinea los botones horizontalmente */
+  gap: 10px; /* Espacio entre los botones */
+  justify-content: center; /* Alinea los botones al centro */
+  margin-top: 10px;
+}
+
+/* Nueva clase para los botones de "Editar" y "Borrar" */
+.icon-button {
+  background-color: transparent; /* Sin fondo */
+  color: #050254; /* Color del icono */
+  padding: 10px; /* Un poco de padding para el icono */
+  border: none; /* Sin borde */
+  cursor: pointer;
+  font-size: 2rem; /* Aumentar el tamaño del icono */
+  width: fit-content; /* Ajusta el tamaño del botón al contenido */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: color 0.3s ease; /* Transición suave al hacer hover */
+}
+
+.icon-button:hover {
+  color: #040083; /* Cambiar el color del icono al pasar el ratón */
+}
+
+
+.buy-button svg {
+  margin-left: 5px;
+}
+
+.pagination {
+  text-align: center;
+  margin-top: 8vh;
+}
+
+.pagination-button,
+.pagination-next {
+  width: 40px; /* Ancho y alto iguales para crear un círculo */
+  height: 40px;
+  background-color: #0502548C; /* Color por defecto cuando no está seleccionado */
+  color: white;
+  border: none;
+  border-radius: 50%; /* Hacer el botón circular */
+  margin: 5px;
+  cursor: pointer;
+  display: inline-flex; /* Centrar contenido dentro del botón */
+  justify-content: center;
+  align-items: center;
+  font-size: 1rem;
+  transition: background-color 0.3s ease; /* Transición suave en el cambio de color */
+  font-weight: bold;
+}
+
+.pagination-button.active {
+  background-color: #050254; /* Color cuando está seleccionado */
+}
+
+.pagination-button:hover {
+  background-color: #050254; /* Cambia a color activo cuando se hace hover */
+}
+
+.add-button {
+  background-color: transparent;
+  color: #050254;
+  border: 1px solid #050254;
+  padding: 5px 15px;
+  font-size: 1rem;
+  border-radius: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.add-button svg {
+  margin-left: 5px;
+}
+
+.add-button:hover {
+  background-color: #050254;
+  color: white;
+}
+
+/* Panel de filtros */
+.filter-panel {
+  background-color: #f9f9f9;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 20px;
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  max-width: 60vh;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: 2vh;
+}
+
+/* Fila de filtros para distribuirlos horizontalmente */
+.filter-row {
+  display: flex;
+  gap: 20px; /* Espacio entre elementos */
+  align-items: center;
+}
+
+/* Ajuste de etiquetas y selectores */
+.filter-panel label {
+  font-size: 1rem;
+  font-weight: bold;
+  color: #050254;
+  margin-bottom: 5px;
+}
+
+.filter-panel select,
+.filter-panel input[type="range"] {
+  padding: 8px 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1rem;
+  color: #333;
+}
+
+/* Estilo del input de rango de precio */
+.filter-panel input[type="range"] {
+  width: 100%; /* Ocupa todo el ancho disponible */
+  margin-top: 5px;
+  background-color: #ddd;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+/* Estilo del botón de aplicar filtros */
+.filter-panel button {
+  background-color: #050254;
+  color: white;
+  padding: 10px 15px;
+  font-size: 1rem;
+  font-weight: bold;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  align-self: flex-start;
+  transition: background-color 0.3s ease;
+}
+
+.filter-panel button:hover {
+  background-color: #040083;
+}
+
+/* Personalización de los indicadores de rango */
+.filter-row span {
+  margin-top: 5px;
+  font-size: 0.9rem;
+  color: #333;
+  font-weight: bold;
+}
+
+.filter-row label {
+  font-size: 1rem;
+  font-weight: bold;
+  color: #050254;
+}
+
+.price-range-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.range-input {
+  width: 100%;
+  -webkit-appearance: none;
+  appearance: none;
+  height: 6px;
+  border-radius: 5px;
+  background: #ddd;
+  outline: none;
+  margin: 10px 0;
+  transition: background 0.3s ease;
+}
+
+.range-input.min {
+  background: #ddd;
+}
+
+.range-input.max {
+  background: #ddd;
+}
+
+.range-input::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  background: #050254;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.range-input::-moz-range-thumb {
+  width: 16px;
+  height: 16px;
+  background: #050254;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.price-values {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  font-size: 0.9rem;
+  color: #666;
+  font-weight: bold;
+  margin-top: 8px;
+}
+
+.price-label {
+  background: #f1f1f1;
+  padding: 4px 8px;
+  border-radius: 4px;
+}
+
+/* Estilos Responsivos */
+@media (max-width: 1200px) {
+  .book-container {
+    max-width: 90vw;
+  }
+
+  .book-grid {
+    grid-template-columns: repeat(2, 1fr); /* Dos columnas en pantallas grandes */
+  }
+
+  .search-bar {
+    width: 45vw;
+  }
+}
+
+@media (max-width: 768px) {
+  .titleAdd {
+    font-size: 1.5rem;
+  }
+
+  .search-filter {
+    flex-direction: column;
+    gap: 1vh;
+    align-items: center;
+  }
+
+  .search-bar {
+    width: 80vw;
+  }
+
+  .filter-button,
+  .add-button {
+    font-size: 0.9rem;
+    padding: 5px 10px;
+  }
+
+  .book-grid {
+    grid-template-columns: 1fr; /* Una sola columna en pantallas medianas */
+    gap: 5vh;
+  }
+
+  .book-image {
+    flex: 0 0 100px; /* Reducir el tamaño de la imagen */
+  }
+
+  .book-cover {
+    width: 100px;
+    height: 150px;
+  }
+
+  .pagination {
+    margin-top: 4vh;
+  }
+
+  .pagination-button,
+  .pagination-next {
+    width: 30px;
+    height: 30px;
+    font-size: 0.9rem;
+  }
+
+  .filter-panel {
+    max-width: 80vw;
+  }
+}
+
+@media (max-width: 480px) {
+  .titleAdd {
+    font-size: 1.2rem;
+    text-align: center;
+  }
+
+  .book-container {
+    max-width: 100vw;
+    padding: 0 10px;
+  }
+
+  .book-card {
+    padding: 15px;
+  }
+
+  .book-title {
+    font-size: 1rem;
+  }
+
+  .search-bar,
+  .filter-panel {
+    width: 100%;
+  }
+
+  .filter-button,
+  .add-button,
+  .buy-button {
+    font-size: 0.8rem;
+    padding: 8px 15px;
+  }
+
+  .filter-panel button {
+    padding: 8px 10px;
+  }
+
+  .price-values {
+    font-size: 0.8rem;
+  }
+
+  .pagination-button,
+  .pagination-next {
+    width: 28px;
+    height: 28px;
+    font-size: 0.8rem;
+  }
+}

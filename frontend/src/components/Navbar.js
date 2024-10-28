@@ -3,13 +3,16 @@ import { Link, useNavigate } from 'react-router-dom';
 import { getAuth, signOut } from 'firebase/auth';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHome, faUser, faBook, faBoxes, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
-//import './Navbar.css';
-import logo from '../pages/Public/assets/logo.png';
+import './Navbar.css';
+import logo from '../pages/Public/assets/Icono-Blanco.png';
 import { AuthContext } from '../context/AuthContext';
+import { useLocation } from 'react-router-dom';
+
 
 const Navbar = () => {
   const auth = getAuth();
   const navigate = useNavigate();
+  const location = useLocation();  // Hook para obtener la ubicación actual
   const { user, userRole } = useContext(AuthContext); // Usa el contexto de autenticación
 
   const handleSignOut = async () => {
@@ -22,39 +25,41 @@ const Navbar = () => {
     }
   };
 
+  // Función para verificar si la ruta actual coincide con la ruta del enlace
+  const isActive = (pathname) => location.pathname === pathname;
+
   return (
-    <nav className="Navbar">
-      <div className="logo-container">
-        <img src={logo} alt="Logo Unimayor" className="logo" />
-        <p>Tienda de Libros Unimayor</p>
+    <nav className="navbar">
+      <div className="navbar-logo">
+        <img src={logo} alt="Logo" />
       </div>
-      <ul>
-        <li>
-          <Link to="/home">
-            <FontAwesomeIcon icon={faHome} /> Inicio
+      <div className="navbar-items">
+        <Link to="/home" className={`navbar-item ${isActive('/home') ? 'active' : ''}`}>
+          <FontAwesomeIcon icon={faHome} />
+          Inicio
+        </Link>
+        <Link to="/users" className={`navbar-item ${isActive('/users') ? 'active' : ''}`}>
+          <FontAwesomeIcon icon={faUser} />
+          Usuario
+        </Link>
+        <Link to="/books" className={`navbar-item ${isActive('/books') ? 'active' : ''}`}>
+          <FontAwesomeIcon icon={faBook} />
+          Libros
+        </Link>
+        
+        {
+          /*
+          <Link to="/inventory" className={`navbar-item ${isActive('/inventory') ? 'active' : ''}`}>
+            <FontAwesomeIcon icon={faBoxes} />
+            Inventari o
           </Link>
-        </li>
-        <li>
-          <Link to="/users">
-            <FontAwesomeIcon icon={faUser} /> Usuarios
-          </Link>
-        </li>
-        <li>
-          <Link to="/books">
-            <FontAwesomeIcon icon={faBook} /> Libros
-          </Link>
-        </li>
-        <li>
-          <Link to="/inventory">
-            <FontAwesomeIcon icon={faBoxes} /> {userRole === 'admin' ? 'Inventario' : 'Comprar'}
-          </Link>
-        </li>
-        <li>
-          <button className="logout-button" onClick={handleSignOut}>
-            <FontAwesomeIcon icon={faSignOutAlt} />
-          </button>
-        </li>
-      </ul>
+          */
+        }
+        <a onClick={handleSignOut} className="navbar-item">
+          <FontAwesomeIcon icon={faSignOutAlt} />
+          Salir
+        </a>
+      </div>
     </nav>
   );
 };

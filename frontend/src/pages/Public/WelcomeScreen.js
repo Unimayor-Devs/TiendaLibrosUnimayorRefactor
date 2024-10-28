@@ -40,14 +40,14 @@ const WelcomeScreen = () => {
         </div>
 
         {/* Figura azul */}
-        <div className="blue-rectangle">
+        <div className="welcomeblue-rectangle">
           {/* Logo */}
-          <img src={iconoUnimayor} alt="Logo" className="logo" />
+          <img src={iconoUnimayor} alt="Logo" className="welcomelogo" />
 
           {/* Textos */}
-          <h1 className="text-1">Tienda de Libros Unimayor</h1>
-          <h2 className="text-2">¿Buscas tu próximo libro favorito?</h2>
-          <h3 className="text-3">¡Haz click aquí para explorar nuestras últimas novedades!</h3>
+          <h1 className="welcometext-1">Tienda de Libros Unimayor</h1>
+          <h2 className="welcometext-2">¿Buscas tu próximo libro favorito?</h2>
+          <h3 className="welcometext-3">¡Haz click aquí para explorar nuestras últimas novedades!</h3>
 
           {/* Botón de explorar */}
           <Link to="/signin">

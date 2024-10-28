@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import { getAuth, signInWithEmailAndPassword, sendPasswordResetEmail } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
 import { FaEnvelope, FaLock, FaEye, FaEyeSlash, FaArrowLeft  } from 'react-icons/fa'; // Importa los iconos de Font Awesome
-import iconoUnimayor from '../../Public/assets/Icono-Blanco.png';
-import './SignInScreen.css'; // Importa tu archivo de estilos CSS
+import logo from '../../Public/assets/Icono-Blanco.png';
 import galery from '../../Public/assets/library-with-books.jpg';
+import './SignInScreen.css'; // Importa tu archivo de estilos CSS
 
 const SignInScreen = () => {
   const [email, setEmail] = useState('');
@@ -69,82 +69,86 @@ const SignInScreen = () => {
   };
 
   return (
-    <div className="signin-container">
-      <div className="blue-rectangle">
+    <div className="white-background">
+      {/* Botón Volver */}
       <button
-          className="back-button"
-          onClick={() => navigate(-1)}
-          aria-label="Volver a la página anterior"
-        >
-          <FaArrowLeft />
-          <span className="back-text">Volver</span>
-        </button>
-        <div className="logo-text">
-          <img src={iconoUnimayor} alt="Logo" className="logo" />
+        className="back-button"
+        onClick={() => navigate(-1)} // Navega hacia la página anterior
+        aria-label="Volver a la página anterior"
+      >
+        <FaArrowLeft />
+        <span className="back-text">Volver</span>
+      </button>
+  
+      {/* Sección de la Izquierda */}
+      <div className="left-section">
+        {/* Figura Azul Independiente Pero queda atrás */}
+        <div className="blue-rectangle"></div>
+  
+        {/* Logo y Textos Sobrepuestos sobre figura azul */}
+        <div className="logo-container">
+          <img src={logo} alt="Logo" className="logo" />
           <div className="text-container">
-            <div className="site-name">Tienda de Libros Unimayor</div>
-            <div className="sign-in-text">Iniciar Sesión</div>
+            <h3>Tienda de Libros Unimayor</h3>
+            <h2>Iniciar Sesión</h2>
           </div>
         </div>
-        {/* Imagen agregada */}
-        <img src={galery} alt="Imagen" className="decorative-image" />
+  
+        {/* Imagen Sobrepuesta sobre figura azul */}
+        <div className="image-container">
+          <img src={galery} alt="Librería" className="library-image" />
+        </div>
       </div>
-      <div className="form-container">
-        {showForgotPassword ? (
-          <form onSubmit={handleResetPassword} className="signin-form">
-            <div className="input-group">
-              <FaEnvelope className="input-icon" />
-              <input
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="Email"
-                required
-                className="input-field"
-              />
-            </div>
-            {error && <p className="error-message">{error}</p>}
-            <button type="submit" className="submit-button">Reestablecer Contraseña</button>
-          </form>
-        ) : (
-          <form onSubmit={handleSignIn} className="signin-form">
-            <div className="input-group">
-              <FaEnvelope className="input-icon" />
-              <input
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="Email"
-                required
-                className="input-field"
-              />
-            </div>
-            <div className="input-group">
-              <FaLock className="input-icon" />
-              <input
-                type={showPassword ? 'text' : 'password'}
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                placeholder="Contraseña"
-                required
-                className="input-field"
-              />
-              {showPassword ? (
-                <FaEyeSlash className="toggle-password" onClick={togglePasswordVisibility} />
+  
+      {/* Sección de la Derecha */}
+      <div className="right-section">
+        {/* Contenedor Formulario */}
+        <div className="form-container">
+          {showForgotPassword ? (
+            <form onSubmit={handleResetPassword}>
+              <div className="form-container input">
+                <input
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="Email"
+                  required
+                />
+              </div>
+              {error && <p className="error-message">{error}</p>}
+              <button type="submit" className="form-container button">Reestablecer Contraseña</button>
+            </form>          
               ) : (
-                <FaEye className="toggle-password" onClick={togglePasswordVisibility} />
+                <form className="signin-form">
+                  <input 
+                    type="text" 
+                    placeholder="Usuario o Correo electrónico" 
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)} 
+                  />
+                  <input 
+                    type="password" 
+                    placeholder="Contraseña" 
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)} 
+                  />
+                  <button onClick={handleSignIn} type="submit">Iniciar Sesión</button>
+                </form>
               )}
-            </div>
-            {error && <p className="error-message">{error}</p>}
-            <button type="submit" className="submit-button">Iniciar Sesión</button>
-            <div className="forgot-password-link">
-              <a href="#" onClick={handleShowForgotPassword}>Olvidé mi contraseña</a>
-            </div>
-          </form>
-        )}
+      
+              <div className="form-links">
+                {showForgotPassword ? null : (
+                  <>
+                    <a href="#" onClick={() => setShowForgotPassword(true)}>Olvidé mi contraseña</a>
+                    <a href="signup">Registrarse</a>
+                  </>
+                )}
+          </div>
+          {error && <p className="error-message">{error}</p>}
+        </div>
       </div>
     </div>
-  );  
+  );       
 };
 
 export default SignInScreen;

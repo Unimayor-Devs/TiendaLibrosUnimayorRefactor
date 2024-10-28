@@ -1,0 +1,88 @@
+.edit-book-screen {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.title {
+    font-size: 2rem;
+    color: #050254;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.edit-book-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.form-row {
+    display: flex;
+    gap: 20px;
+}
+
+.form-group {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+    padding: 10px;
+    padding-left: 3vh; /* Alejar el texto 4vh de la pared izquierda */
+    border: 1px solid #ccc;
+    border-radius: 20px; /* Ajuste del radio de los bordes */
+    font-weight: bold; /* Hacer la fuente bold */
+    color: #050254;
+    font-size: 1rem; /* Ajustar el tamaño de la fuente */
+}
+
+/* Ajuste específico para el textarea */
+textarea {
+    resize: vertical; /* Permitir redimensionar solo en vertical */
+    height: 10vh; /* Altura de 10vh para el textarea */
+}
+
+
+/* Ajuste específico para el textarea */
+textarea {
+    resize: vertical; /* Permitir redimensionar solo en vertical */
+    height: 10vh; /* Altura de 10vh para el textarea */
+}
+
+/* Cambiar color y estilo del placeholder */
+.form-group input::placeholder,
+.form-group textarea::placeholder,
+.form-group select::placeholder {
+    color: #05025480; /* Color del placeholder */
+    font-weight: bold; /* Fuente en bold */
+}
+
+.form-actions {
+    display: flex;
+    flex-direction: column; /* Alinea los botones verticalmente */
+    gap: 20px; /* Espacio entre los botones */
+    align-items: center; /* Centra los botones horizontalmente */
+}
+
+.submit-button,
+.cancel-button {
+    padding: 10px 20px;
+    font-size: 1rem;
+    border-radius: 50px;
+    cursor: pointer;
+    min-width: 20vh; /* Ambos botones tienen un ancho mínimo de 2vh */
+    background-color: #050254; /* Mismo color de fondo para ambos botones */
+    color: white; /* Mismo color de texto para ambos botones */
+    border: none; /* Sin borde */
+    text-align: center;
+}
+
+.submit-button:hover,
+.cancel-button:hover {
+    background-color: #0502548C; /* Cambiar fondo a gris oscuro al hacer hover */
+    color: white;
+}

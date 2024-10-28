@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { getBookById, editBook } from '../../../services/bookService';
+import { getBookById, editBook, getBooksByType } from '../../../services/bookService';
+import { assignInvBookId, editBookAndInventory } from '../../../services/inventoryServices';
 import { useNavigate, useParams } from 'react-router-dom';
-//import './EditBookScreen.css';
+import Navbar from '../../../components/Navbar';
+import './EditBookScreen.css';
 
 const EditBookScreen = () => {
   const { bookId } = useParams(); // Obtener el ID del libro de los parámetros de la URL
@@ -12,7 +14,11 @@ const EditBookScreen = () => {
     type: '',
     value: '',
     description: '',
-    imageUrl: ''
+    imageUrl: '',
+    invCantStock: '',
+    invBookId: '',      // Nuevo campo ID del libro
+    invStatus: '',      // Nuevo campo Estado
+    invDateAdd: ''      // Nuevo campo de última actualización
   });
 
   useEffect(() => {
@@ -34,7 +40,7 @@ const EditBookScreen = () => {
     let newValue = value;
 
     if (name === 'value') {
-      // Asegúrate de que newValue es una cadena antes de usar replace
+      // Remover caracteres no numéricos excepto punto decimal
       newValue = String(newValue).replace(/[^\d.]/g, '');
 
       const decimalCount = (newValue.match(/\./g) || []).length;
@@ -51,13 +57,29 @@ const EditBookScreen = () => {
     const confirmEdit = window.confirm('¿Está seguro de editar este libro?');
     if (confirmEdit) {
       try {
-        // Asegúrate de que bookData.value es una cadena antes de usar replace y convertir a número
-        const numericValue = parseFloat(String(bookData.value).replace(/[^\d.]/g, ''));
-        if (isNaN(numericValue)) {
-          alert('El valor ingresado no es un número válido.');
-          return;
+        // Verificar cuántos libros existen con el mismo tipo
+        const booksOfType = await getBooksByType(bookData.type);
+  
+        // Si hay más de un libro con el mismo tipo, se genera un nuevo invBookId
+        let invBookId = bookData.invBookId; // Usa el invBookId actual por defecto
+        if (booksOfType.length > 1) {
+          invBookId = await assignInvBookId(bookData.type);
         }
-        await editBook(bookId, { ...bookData, value: numericValue });
+  
+        // Remover caracteres no numéricos excepto punto decimal
+        const numericValue = parseFloat(String(bookData.value).replace(/[^\d.]/g, ''));
+  
+        // Actualizar invDateAdd con la fecha actual
+        const currentDate = new Date().toISOString().slice(0, 10);
+  
+        // Llamada a editBookAndInventory para actualizar el libro en la base de datos
+        await editBookAndInventory(bookId, {
+          ...bookData,
+          invBookId,
+          value: numericValue,
+          invDateAdd: currentDate
+        });
+        
         alert('Libro editado exitosamente');
         navigate('/books');
       } catch (error) {
@@ -65,80 +87,134 @@ const EditBookScreen = () => {
         alert('Hubo un error al editar el libro. Por favor, inténtalo de nuevo.');
       }
     }
-  };
+  };  
 
   const handleCancel = () => {
     navigate('/books');
   };
 
   return (
-    <div className="edit-book-container">
-      <h2>Editar Libro</h2>
-      <form onSubmit={handleSubmit}>
-        <div className="form-group">
-          <label>Título</label>
-          <input
-            type="text"
-            name="title"
-            value={bookData.title}
-            onChange={handleChange}
-            required
-          />
+    <div>
+      <Navbar />
+        <div className="edit-book-screen">
+          <h1 className="title">Editar Libro</h1>
+          <form className="edit-book-form" onSubmit={handleSubmit}>
+            {/* Primera fila */}
+            <div className="form-row">
+              <div className="form-group">
+                <input
+                  type="text"
+                  id="title"
+                  name="title"
+                  value={bookData.title}
+                  onChange={handleChange}
+                  placeholder="Título *"  
+                  required
+                />
+              </div>
+              <div className="form-group">
+                <input
+                  type="text"
+                  id="author"
+                  name="author"
+                  value={bookData.author}
+                  onChange={handleChange}
+                  placeholder="Autor *"  
+                  required
+                />
+              </div>
+            </div>
+      
+            {/* Segunda fila */}
+            <div className="form-row">
+              <div className="form-group">
+                <input
+                  type="text"
+                  id="type"
+                  name="type"
+                  value={bookData.type}
+                  onChange={handleChange}
+                  placeholder="Categoría *"  
+                  required
+                />
+              </div>
+              <div className="form-group">
+                <input
+                  type="text"
+                  id="value"
+                  name="value"
+                  value={bookData.value}
+                  onChange={handleChange}
+                  placeholder="Valor *"  
+                  required
+                />
+              </div>
+            </div>
+      
+            {/* Tercera fila */}
+            <div className="form-row">
+              <div className="form-group">
+                <input
+                  type="number"
+                  id="invCantStock"
+                  name="invCantStock"
+                  value={bookData.invCantStock}
+                  onChange={handleChange}
+                  placeholder="Cantidad en Stock *"  
+                  required
+                />
+              </div>
+              <div className="form-group">
+                <select
+                  id="invStatus"
+                  name="invStatus"
+                  value={bookData.invStatus}
+                  onChange={handleChange}
+                  required
+                >
+                  <option value="" disabled>Estado *</option>  
+                  <option value="Disponible">Disponible</option>
+                  <option value="No disponible">No Disponible</option>
+                </select>
+              </div>
+            </div>
+      
+            {/* Sinopsis */}
+            <div className="form-group">
+              <textarea
+                id="description"
+                name="description"
+                value={bookData.description}
+                onChange={handleChange}
+                placeholder="Sinopsis *"  
+                required
+              />
+            </div>
+      
+            {/* URL de la imagen */}
+            <div className="form-group">
+              <input
+                type="text"
+                id="imageUrl"
+                name="imageUrl"
+                value={bookData.imageUrl}
+                onChange={handleChange}
+                placeholder="URL de la Imagen de Portada *"  
+                required
+              />
+            </div>
+      
+            {/* Botones de acción */}
+            <div className="form-actions">
+              <button type="submit" className="submit-button">Guardar Cambios</button>
+              <button type="button" className="cancel-button" onClick={handleCancel}>
+                Cancelar
+              </button>
+            </div>
+          </form>
         </div>
-        <div className="form-group">
-          <label>Autor</label>
-          <input
-            type="text"
-            name="author"
-            value={bookData.author}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div className="form-group">
-          <label>Tipo</label>
-          <input
-            type="text"
-            name="type"
-            value={bookData.type}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div className="form-group">
-          <label>Valor</label>
-          <input
-            type="text"
-            name="value"
-            value={bookData.value}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div className="form-group">
-          <label>Descripción</label>
-          <textarea
-            name="description"
-            value={bookData.description}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div className="form-group">
-          <label>URL de la Imagen</label>
-          <input
-            type="text"
-            name="imageUrl"
-            value={bookData.imageUrl}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <button type="submit">Guardar Cambios</button>
-        <button type="button" onClick={handleCancel}>Cancelar</button>
-      </form>
     </div>
-  );
+  );    
 };
 
 export default EditBookScreen;

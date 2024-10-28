@@ -88,28 +88,54 @@ export const getBooksByType = async (bookType) => {
   };
   
   // Función para asignar un invBookId basado en el tipo de libro y la cantidad existente
-    export const assignInvBookId = async (bookType) => {
-        try {
-        const filteredBooks = await getBooksByType(bookType);
-        const existingInvIds = filteredBooks.filter(book => book.invBookId).map(book => book.invBookId);
-        let invBookId = '';
-        let typePrefix = bookType.substring(0, 3).toUpperCase();
-    
-        if (existingInvIds.length === 0) {
-            // Si no hay ningún invBookId existente, asigna uno nuevo basado en el tipo de libro
-            invBookId = `${typePrefix}-1`;
-        } else {
-            // Si hay invBookIds existentes, encuentra el número más alto y asigna uno nuevo basado en ese número
-            const highestNumber = Math.max(...existingInvIds.map(id => {
-            const parts = id.split('-');
-            return parts.length > 1 && !isNaN(parts[1]) ? parseInt(parts[1], 10) : 0;
-            }));
-            invBookId = `${typePrefix}-${highestNumber + 1}`;
+  export const assignInvBookId = async (bookType, currentBookId = null, currentInvBookId = null) => {
+    try {
+      // Obtener todos los libros del tipo solicitado
+      const filteredBooks = await getBooksByType(bookType);
+      
+      // Si solo hay un libro y es el actual, mantenemos su invBookId
+      if (filteredBooks.length === 1 && filteredBooks[0].id === currentBookId) {
+        return currentInvBookId || `${bookType.substring(0, 3).toUpperCase()}-1`;
+      }
+
+      // Si el `currentInvBookId` ya existe en los libros filtrados, no generamos uno nuevo
+      if (currentInvBookId && filteredBooks.some(book => book.invBookId === currentInvBookId && book.id === currentBookId)) {
+        return currentInvBookId;
+      }
+
+      // Filtrar los invBookIds de otros libros del mismo tipo, excluyendo el actual
+      const existingInvIds = filteredBooks
+        .filter(book => book.invBookId && book.id !== currentBookId)
+        .map(book => book.invBookId);
+
+      // Define el prefijo basado en el tipo de libro
+      const typePrefix = bookType.substring(0, 3).toUpperCase();
+      let invBookId = `${typePrefix}-1`; // Valor por defecto si es el primer libro de este tipo
+
+      // Si hay otros libros del mismo tipo
+      if (existingInvIds.length > 0) {
+        // Obtener todos los números actuales en los invBookIds de ese tipo
+        const existingNumbers = existingInvIds.map(id => {
+          const parts = id.split('-');
+          return parts.length > 1 && !isNaN(parts[1]) ? parseInt(parts[1], 10) : 0;
+        });
+
+        // Encontrar el menor número faltante en la secuencia, comenzando desde 1
+        let nextNumber = 1;
+        while (existingNumbers.includes(nextNumber)) {
+          nextNumber++;
         }
-        return invBookId;
-        } catch (error) {
-        console.error('Error al asignar invBookId:', error);
-        throw error;
-        }
-    };
+
+        // Asigna el ID con el siguiente número disponible en secuencia
+        invBookId = `${typePrefix}-${nextNumber}`;
+      }
+
+      // Retorna el `currentInvBookId` si no cambió el tipo de libro, o el nuevo invBookId generado
+      return currentInvBookId || invBookId;
+    } catch (error) {
+      console.error('Error al asignar invBookId:', error);
+      throw error;
+    }
+  };
+
   

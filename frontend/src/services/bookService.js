@@ -1,4 +1,4 @@
-import { collection, getDocs, deleteDoc, doc, updateDoc, getDoc, addDoc } from 'firebase/firestore';
+import { collection, getDocs, deleteDoc, doc, updateDoc, getDoc, addDoc, query, where } from 'firebase/firestore';
 import { firebaseFirestore } from './FirebaseService';
 
 // Función para agregar un nuevo libro
@@ -106,6 +106,26 @@ export const updateBookStatus = async (bookId, newStatus) => {
     console.log(`Estado del libro con ID ${bookId} actualizado a "${newStatus}"`);
   } catch (error) {
     console.error('Error updating book status:', error);
+    throw error;
+  }
+};
+
+// Función para consultar libros por tipo
+export const getBooksByType = async (type) => {
+  try {
+    const booksCollectionRef = collection(firebaseFirestore, 'books');
+    // Crear una consulta para obtener solo los libros con el tipo especificado
+    const booksQuery = query(booksCollectionRef, where('type', '==', type));
+    const booksQuerySnapshot = await getDocs(booksQuery);
+    
+    const books = [];
+    booksQuerySnapshot.forEach((doc) => {
+      books.push({ id: doc.id, ...doc.data() });
+    });
+
+    return books;
+  } catch (error) {
+    console.error('Error al consultar libros por tipo:', error);
     throw error;
   }
 };

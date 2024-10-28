@@ -1,8 +1,24 @@
 import React, { useState, useEffect } from 'react';
-import { getAuth, createUserWithEmailAndPassword, sendEmailVerification } from 'firebase/auth';
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  sendEmailVerification
+} from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
-import { getFirestore, collection, getDocs, setDoc, doc } from 'firebase/firestore'; // Importa Firestore
-import { FaLock, FaEye, FaEyeSlash, FaUserCircle, FaEnvelope,FaPhone, FaBuilding, FaCity, FaArrowLeft  } from 'react-icons/fa';
+import { getFirestore, collection, getDocs, setDoc, doc } from 'firebase/firestore';
+import {
+  FaLock,
+  FaEye,
+  FaEyeSlash,
+  FaUserCircle,
+  FaUser,
+  FaEnvelope,
+  FaPhone,
+  FaArrowLeft
+} from 'react-icons/fa';
+import logo from '../../Public/assets/Icono-Blanco.png';
+import galery from '../../Public/assets/library-with-books.jpg';
+import './SignInScreen.css'; // Importa tu archivo de estilos CSS
 
 const SignUpScreen = () => {
   const [email, setEmail] = useState('');
@@ -16,37 +32,33 @@ const SignUpScreen = () => {
   const [error, setError] = useState(null);
   const [departmentsList, setDepartmentsList] = useState([]);
   const [showPassword, setShowPassword] = useState(false);
+
   const auth = getAuth();
   const navigate = useNavigate();
   const db = getFirestore();
 
   const validatePassword = (password) => {
     const errors = {};
-  
+
     if (password.length < 8) {
       errors.lengthError = 'La contraseña debe tener al menos 8 caracteres.';
     }
-  
     if (!/[a-z]/.test(password)) {
-      errors.lowercaseError = 'La contraseña debe contener al menos una letra minúscula.';
+      errors.lowercaseError = 'Debe contener al menos una letra minúscula.';
     }
-  
     if (!/[A-Z]/.test(password)) {
-      errors.uppercaseError = 'La contraseña debe contener al menos una letra mayúscula.';
+      errors.uppercaseError = 'Debe contener al menos una letra mayúscula.';
     }
-  
     if (!/\d/.test(password)) {
-      errors.numberError = 'La contraseña debe contener al menos un número.';
+      errors.numberError = 'Debe contener al menos un número.';
     }
-  
     if (!/[^a-zA-Z0-9]/.test(password)) {
-      errors.specialCharError = 'La contraseña debe contener al menos un carácter especial (por ejemplo, !@#$%^&*).';
+      errors.specialCharError = 'Debe contener al menos un carácter especial.';
     }
-  
     if (/\s/.test(password)) {
-      errors.spaceError = 'La contraseña no debe contener espacios.';
+      errors.spaceError = 'No debe contener espacios.';
     }
-  
+
     return errors;
   };
 
@@ -67,31 +79,30 @@ const SignUpScreen = () => {
   const handleSignUp = async (e) => {
     e.preventDefault();
 
+    /*
     if (phoneNumber.length !== 10) {
       setError('El número de teléfono debe tener exactamente 10 dígitos.');
       return;
     }
-  
+    */
+
     if (password !== passwordConfirmation) {
       setError('Las contraseñas no coinciden.');
       return;
     }
-  
+
     const passwordErrors = validatePassword(password);
-  
+
     if (Object.keys(passwordErrors).length > 0) {
-      const errorMessage = Object.values(passwordErrors).join(' ');
-  
-      setError(errorMessage);
+      setError(Object.values(passwordErrors).join(' '));
       return;
     }
-  
+
     try {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
-
       await sendEmailVerification(user);
-  
+
       await setDoc(doc(db, 'users', user.uid), {
         userId: user.uid,
         firstName,
@@ -99,27 +110,14 @@ const SignUpScreen = () => {
         email,
         phoneNumber,
         city,
-        department,
+        department
       });
-  
-      setEmail('');
-      setPassword('');
-      setPasswordConfirmation('');
-      setFirstName('');
-      setLastName('');
-      setPhoneNumber('');
-      setCity('');
-      setDepartment('');
-      setError(null);
-  
-      console.log('Usuario registrado:', user);
-      console.log('Datos del usuario almacenados en la colección "users".');
+
       navigate('/home');
     } catch (error) {
       if (error.code === 'auth/email-already-in-use') {
-        setError('El correo electrónico ya está en uso. Por favor, utiliza otro.');
+        setError('El correo electrónico ya está en uso.');
       } else {
-        console.error('Error al registrar usuario:', error.message);
         setError('Error al registrar usuario. Por favor, inténtalo de nuevo.');
       }
     }
@@ -130,117 +128,109 @@ const SignUpScreen = () => {
   };
 
   return (
-    <div className="signin-container">
-      <h1>Registro de Usuario</h1>
-      <form onSubmit={handleSignUp} className="signup-form">
-        <div className="input-container">
-          <FaUserCircle className="input-icon" />
-          <input
-            type="text"
-            value={firstName}
-            onChange={(e) => setFirstName(e.target.value)}
-            placeholder="Nombre"
-            required
-          />
+    <div className="white-background">
+      {/* Botón Volver */}
+      <button
+        className="back-button"
+        onClick={() => navigate(-1)} // Navega hacia la página anterior
+        aria-label="Volver a la página anterior"
+      >
+        <FaArrowLeft />
+        <span className="back-text">Volver</span>
+      </button>
+  
+      {/* Sección de la Izquierda */}
+      <div className="left-section">
+        {/* Figura Azul Independiente Pero queda atrás */}
+        <div className="blue-rectangle"></div>
+  
+        {/* Logo y Textos Sobrepuestos sobre figura azul */}
+        <div className="logo-container">
+          <img src={logo} alt="Logo" className="logo" />
+          <div className="text-container">
+            <h3>Tienda de Libros Unimayor</h3>
+            <h2>Registro</h2>
+          </div>
         </div>
-        <div className="input-container">
-          <FaUserCircle className="input-icon" />
-          <input
-            type="text"
-            value={lastName}
-            onChange={(e) => setLastName(e.target.value)}
-            placeholder="Apellido"
-            required
-          />
+  
+        {/* Imagen Sobrepuesta sobre figura azul */}
+        <div className="image-container">
+          <img src={galery} alt="Librería" className="library-image" />
         </div>
-        <div className="input-container">
-          <FaEnvelope className="input-icon" />
-          <input
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            placeholder="Email"
-            required
-          />
+      </div>
+  
+      {/* Sección de la Derecha */}
+      <div className="right-section">
+        {/* Contenedor Formulario */}
+        <div className="form-container">
+          {"" ? (
+            <form onSubmit={""}>
+              <div className="form-container input">
+                <input
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="Email"
+                  required
+                />
+              </div>
+              {error && <p className="error-message">{error}</p>}
+              <button type="submit" className="form-container button">Reestablecer Contraseña</button>
+            </form>          
+              ) : (
+                <form className="signin-form">
+                  <input 
+                    type="text" 
+                    value={firstName}
+                    placeholder="Primer Nombre" 
+                    onChange={(e) => setFirstName(e.target.value)}
+                    required
+                  />
+
+                  <input 
+                    type="text" 
+                    value={email}
+                    placeholder="Correo electrónico" 
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
+                  />
+
+                  <input 
+                    type={showPassword ? 'text' : 'password'}
+                    value={password}
+                    placeholder="Contraseña" 
+                    onChange={(e) => setPassword(e.target.value)}
+                    required
+                  />
+
+                  <input 
+                    type={showPassword ? 'text' : 'password'}
+                    value={passwordConfirmation}
+                    placeholder="Confirmar contraseña"
+                    onChange={(e) => setPasswordConfirmation(e.target.value)}
+                    required
+                  />
+                  <button onClick={handleSignUp} type="submit">Registrarse</button>
+                </form>
+              )}
+      
+              <div className="form-links-signup">
+                {"" ? null : (
+                  <>
+                    <a href="signin">¿Ya tienes una cuenta?</a>
+                  </>
+                )}
+              </div>
+              <div className="form-links-signup">
+                {"" ? null : (
+                  <>
+                    <a href="signin">Inicia Sesión</a>
+                  </>
+                )}
+              </div>
+
+            {error && <p className="error-message">{error}</p>}
         </div>
-        <div className="input-container">
-          <FaPhone  className="input-icon" />
-          <input
-            type="tel"
-            pattern="[0-9]*"
-            value={phoneNumber}
-            onChange={(e) => {
-              const validatedValue = e.target.value.replace(/\D/g, '');
-              if (validatedValue.length <= 10) {
-                setPhoneNumber(validatedValue);
-              }
-            }}
-            placeholder="Teléfono"
-            required
-          />
-        </div>
-        <div className="input-container">
-          <FaLock className="input-icon" />
-          <input
-            type={showPassword ? 'text' : 'password'}
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            placeholder="Contraseña"
-            required
-          />
-          {showPassword ? (
-            <FaEyeSlash className="password-toggle-icon" onClick={togglePasswordVisibility} />
-          ) : (
-            <FaEye className="password-toggle-icon" onClick={togglePasswordVisibility} />
-          )}
-        </div>
-        <div className="input-container">
-          <FaLock className="input-icon" />
-          <input
-            type={showPassword ? 'text' : 'password'}
-            value={passwordConfirmation}
-            onChange={(e) => setPasswordConfirmation(e.target.value)}
-            placeholder="Verificar Contraseña"
-            required
-          />
-          {showPassword ? (
-            <FaEyeSlash className="password-toggle-icon" onClick={togglePasswordVisibility} />
-          ) : (
-            <FaEye className="password-toggle-icon" onClick={togglePasswordVisibility} />
-          )}
-        </div>
-        <div className="input-container">
-          {/* <FaBuilding  className="input-icon" /> */}
-          <select style={{ width: '98%', height: '36px', border: '1px solid #ccc', borderRadius: '5px'}}
-            value={department}
-            onChange={(e) => setDepartment(e.target.value)}
-            required
-          >
-            <option  value="" disabled>
-              Selecciona un departamento
-            </option>
-            {departmentsList.map((dep) => (
-              <option key={dep} value={dep}>
-                {dep}
-              </option>
-            ))}
-          </select>
-        </div>
-        <div className="input-container">
-          <FaCity  className="input-icon" />
-          <input
-            type="text"
-            value={city}
-            onChange={(e) => setCity(e.target.value)}
-            placeholder="Ciudad"
-            required
-          />
-        </div>
-        {error && <p className="error-message">{error}</p>}
-        <button type="submit" className="submit-button">Registrarse</button>
-      </form>
-      <div className="back-to-main-page">
-        <button className="back-button" onClick={() => navigate('/')}><FaArrowLeft  /> Volver a la página principal</button>
       </div>
     </div>
   );
