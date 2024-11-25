@@ -13,50 +13,47 @@
   width: 100%;
 }
 
+/* Figura azul como fondo SVG */
+.welcomeblue-rectangle {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 75vw;
+  height: 95vh;
+  background: url('../Public/assets/FiguraAzul.svg') no-repeat center center; /* Ruta al SVG */
+  background-size: cover; /* Escala el SVG proporcionalmente al contenedor */
+  z-index: 1; /* Detrás de los textos y botones */
+}
+
 .carousel-container {
   position: absolute;
-  top: 20%; 
-  right: 45vh;
+  top: 20vh; 
+  right: 15vw;
   transform: translateX(-33%);
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 45vh; 
+  width: 25vw; 
   height: 25vh; 
   overflow: visible; 
   z-index: 1100;
 }
 
-/* Figura Azul sobrepuesta */
-.welcomeblue-rectangle {
-  position: absolute; /* Superpuesta sobre todo */
-  top: 0;
-  left: 0;
-  width: 100vw; /* Ocupará todo el ancho de la pantalla */
-  height: 100vh; /* Ocupará todo el alto de la pantalla */
-  background-color: #050254;
-  clip-path: path('M0,900S443.32,850.5,690.44,820.94s331.771-20.292,393.336-200.967S1234.737,1.579,1234.737,1.579H0Z');
-
-
-
-  z-index: 999; /* Muy alto para que esté sobre todo */
-  transform: scale(1); /* Inicialmente a tamaño completo */
-  transform-origin: top left; /* Mantén el origen en la esquina superior izquierda */
-  transition: transform 0.3s ease; /* Transición suave */
-  scale: 100%;
-}
-
 .carousel-image {
-  position: absolute; 
+  position: absolute;
   top: 0;
   left: 0;
-  width: 82vh;
-  height: 55vh;
-  object-fit: cover;
-  border-radius: 60px;
+  width: 36vw; /* Ancho responsivo */
+  height: auto; /* Calcula la altura automáticamente según la proporción */
+  aspect-ratio: 16 / 11; /* Define la proporción */
+  object-fit: cover; /* Escala la imagen para cubrir todo el área */
+  border-radius: clamp(5px, 3vw, 60px); /* Dinámico: mínimo 5px, máximo 30px */
   transition: opacity 1s ease, transform 1s ease;
   z-index: 0;
+  background-color: #fff; /* Fondo de respaldo */
 }
+
+
 
 .carousel-image.front {
   z-index: 10; 
@@ -69,20 +66,20 @@
   z-index: 5;  
   opacity: 0.8;
   filter: blur(3px); 
-  transform: scale(1) translate(40px, 30px); 
+  transform: scale(1) translate(3vh, 1.5vh); 
 }
 
 .carousel-image.back {
   z-index: 0;  
   opacity: 0.5;
   filter: blur(5px); 
-  transform: scale(1) translate(60px, 60px); 
+  transform: scale(1) translate(6vh, 3vh); 
 }
 
 .auth-buttons {
   position: absolute;
-  top: 10%;
-  right: 12%;
+  top: 8vh;
+  right: 10vw;
   display: flex;
   flex-direction: row;
   gap: 20px;
@@ -93,8 +90,8 @@
   background-color: #050254;
   border: none;
   color: #FFFFFF;
-  font-size: 18px;
-  padding: 10px 20px;
+  font-size: 2vh;
+  padding: 1.5vh 2.5vh;
   border-radius: 25px;
   cursor: pointer;
   font-weight: normal;
@@ -117,40 +114,41 @@
 }
 
 .welcometext-1 {
-  font-size: 24px;
+  font-size: clamp(12px, 2vw, 24px); 
   color: #FFFFFF;
   margin-left: 15%;
   font-weight: normal;
-  margin-bottom: 0%; 
+  margin-bottom: 0%;
 }
 
 .welcometext-2 {
-  font-size: 52px;
+  font-size: clamp(24px, 4vw, 52px); 
   color: #FFFFFF;
   margin-left: 15%;
   font-weight: bold;
   max-width: 40%;
   word-break: break-word;
-  margin-bottom: 0%; 
+  margin-bottom: 0%;
 }
 
 .welcometext-3 {
-  font-size: 18px;
+  font-size: clamp(11px, 1.5vw, 18px); 
   color: #FFFFFF;
   margin-left: 15%;
   font-weight: lighter;
-  margin-bottom: 2%;  
+  margin-bottom: 2%;
+  max-width: 40%;
+  word-break: break-word;
 }
 
-
 .explore-btn {
-  width: 9%;
-  height: 45px;
+  font-size: 2.2vh;
+  width: 15vh;
+  height: 5vh;
   background-color: #FFFFFF;
-  border-radius: 23px;
+  border-radius: 50px;
   border: none;
   color: #050254;
-  font-size: 21px;
   font-weight: bold;
   margin-left: 15%;
   margin-top: 1%;
@@ -158,257 +156,109 @@
 }
 
 
-@media (max-width: 1880px) {
-  .carousel-image {
-    width: 76vh;
-    height: 52vh;
+/* Media query para pantallas en orientación vertical */
+@media (orientation: portrait) {
+  .welcome-container {
+    flex-direction: column; /* Cambia a columna para mejor uso del espacio */
+    justify-content: center;
+    align-items: center;
+    height: auto; /* Permite que el contenido crezca verticalmente */
+    transition: all 0.5s ease; /* Transición para el cambio de diseño */
+  }
+
+  .white-background {
+    height: auto; /* Ajusta el fondo para que se adapte al contenido */
+    transition: all 0.5s ease; /* Transición para el cambio de diseño */
+  }
+
+  .welcomeblue-rectangle {
+    width: 120vw; /* Ocupa todo el ancho de la pantalla */
+    height: 80vh; /* Ocupa la mitad superior de la pantalla */
+    transition: all 0.5s ease; /* Transición para el cambio de diseño */
   }
 
   .carousel-container {
-    top: 20%; 
-    right: 18%;
+    display: none; /* Elimina completamente el carrusel de la vista */
+    transition: all 0.5s ease; /* Transición para el cambio de diseño */
   }
 
   .auth-buttons {
-    top: 10%;
-    right: 10%;
-    scale: 99%;
+    top: auto; /* Posición automática según el flujo del contenido */
+    margin-top: 2vh; /* Añade espacio con otros elementos */
+    right: auto;
+    justify-content: center; /* Centra los botones horizontalmente */
+    transition: all 0.5s ease; /* Transición para el cambio de diseño */
   }
 
-  /* Figura Azul sobrepuesta */
-  .welcomeblue-rectangle {
-    transform: translateX(-2vh); /* Mover 2vh a la izquierda */
+  .auth-btn {
+    font-size: 1.8vh; /* Ajusta el tamaño del texto */
+    width: 17vh; /* Botón más ancho para pantallas verticales */
+    height: 5vh; /* Botón más alto */
+    margin: 6vh auto; /* Centra el botón */
+    background-color: #FFFFFF; /* Cambia el fondo a blanco */
+    color: #050254; /* Cambia el texto a azul */
+    font-weight: bold;
+    border-radius: 50px;
+    transition: all 0.5s ease; /* Transición para el cambio de diseño */
+  }
+
+  .auth-btn:hover {
+    background-color: #F0F0F0; /* Cambia ligeramente el color al pasar el mouse */
+    transition: all 0.5s ease; /* Transición para el cambio de diseño */
+  }
+
+  .auth-btn:focus {
+    outline: none;
   }
 
   .welcomelogo {
-    width: 4.5%;
-    margin-left: 15%;
-    margin-top: 10%;
+    width: 16%; /* Ajusta el tamaño del logo */
+    margin: 35vw auto 8vw ; /* Centra el logo con margen automático */
+    margin-left: 40vw;
+    display: block; /* Asegura que el logo se renderice como un bloque centrado */
+    transition: all 0.5s ease; /* Transición para el cambio de diseño */
+  }
+
+  .welcometext-1{
+    font-size: clamp(12px, 4.5vw, 24px); /* Ajusta el tamaño de las fuentes */
+    text-align: left; /* Centra el texto */
+    margin: 1.2vh 8vw; /* Añade mayor distancia vertical entre los textos */
+    max-width: 70%; /* Limita el ancho del texto */
+    line-height: 1.8; /* Añade espacio entre las líneas */
+    transition: all 0.5s ease; /* Transición para el cambio de diseño */
+  }
+
+  .welcometext-2{
+    font-size: clamp(12px, 7.5vw, 32px); /* Ajusta el tamaño de las fuentes */
+    text-align: left; /* Centra el texto */
+    margin: 1.2vh 8vw; /* Añade mayor distancia vertical entre los textos */
+    max-width: 70%; /* Limita el ancho del texto */
+    line-height: 1.2; /* Añade espacio entre las líneas */
+    transition: all 0.5s ease; /* Transición para el cambio de diseño */
+  }
+
+  .welcometext-3{
+    font-size: clamp(12px, 4vw, 16px); /* Ajusta el tamaño de las fuentes */
+    text-align: left; /* Centra el texto */
+    margin: 2vh 8vw; /* Añade mayor distancia vertical entre los textos */
+    max-width: 70%; /* Limita el ancho del texto */
+    line-height: 1.8; /* Añade espacio entre las líneas */
+    transition: all 0.5s ease; /* Transición para el cambio de diseño */
+  }
+
+  .explore-btn {
+    font-size: 2.2vh; /* Ajusta el tamaño del texto */
+    width: 16vh; /* Botón más ancho para pantallas verticales */
+    height: 5vh; /* Botón más alto */
+    margin: 6vh 8vw; /* Centra el botón */
+    background-color: #FFFFFF; /* Cambia el fondo a blanco */
+    color: #050254; /* Cambia el texto a azul */
+    border-radius: 50px;
+    transition: all 0.5s ease; /* Transición para el cambio de diseño */
+  }
+
+  .explore-btn:hover {
+    background-color: #F0F0F0; /* Color ligeramente diferente al pasar el mouse */
   }
 }
 
-@media (max-width: 1737px) {
-  .carousel-image {
-    width: 72vh;
-    height: 48vh;
-  }
-
-  .carousel-container {
-    top: 20%; 
-    right: 30vh;
-  }
-
-  .auth-buttons {
-    top: 10%;
-    right: 10%;
-    scale: 98%;
-  }
-}
-
-@media (max-width: 1685px) {
-  .carousel-image {
-    width: 68vh;
-    height: 46vh;
-  }
-
-  .carousel-container {
-    top: 20%; 
-    right: 22vh;
-  }
-
-  .auth-buttons {
-    top: 10%;
-    right: 8%;
-  }
-}
-
-@media (max-width: 1652px) {
-  .carousel-image {
-    width: 68vh;
-    height: 46vh;
-  }
-
-  .carousel-container {
-    top: 20%; 
-    right: 22vh;
-  }
-
-  .auth-buttons {
-    top: 10%;
-    right: 8%;
-  }
-}
-
-@media (max-width: 1646px) {
-  carousel-image {
-    width: 65vh;
-    height: 48vh;
-  }
-
-  .carousel-container {
-    top: 20%; 
-    right: 10%;
-  }
-
-  .auth-buttons {
-    top: 10%;
-    right: 6%;
-    scale: 99%;
-  }
-
-  /* Figura Azul sobrepuesta */
-  .welcomeblue-rectangle {
-    transform: translateX(-2vh); /* Mover 2vh a la izquierda */
-  }
-
-  .welcomelogo {
-    width: 4.5%;
-    margin-left: 15%;
-    margin-top: 10%;
-  }
-}
-
-@media (max-width: 1600px) {
-  .carousel-image {
-    width: 62vh;
-    height: 45vh;
-  }
-
-  .carousel-container {
-    top: 20%;
-    right: 8%;
-  }
-
-  .auth-buttons {
-    top: 10%;
-    right: 5%;
-    scale: 97%;
-  }
-
-  /* Figura Azul sobrepuesta */
-  .welcomeblue-rectangle {
-    transform: translateX(-5vh); /* Mover 2vh a la izquierda */
-  }
-
-  .welcomelogo {
-    width: 4.3%;
-    margin-left: 15%;
-    margin-top: 10%;
-  }
-}
-
-@media (max-width: 1550px) {
-  .carousel-image {
-    width: 60vh;
-    height: 43vh;
-  }
-
-  .carousel-container {
-    top: 20%;
-    right: 7%;
-  }
-
-  .auth-buttons {
-    top: 10%;
-    right: 5%;
-    scale: 96%;
-  }
-
-  /* Figura Azul sobrepuesta */
-  .welcomeblue-rectangle {
-    transform: translateX(-12vh); /* Mover 2vh a la izquierda */
-  }
-
-  .welcomelogo {
-    width: 4.2%;
-    margin-left: 15%;
-    margin-top: 10%;
-  }
-}
-
-@media (max-width: 1500px) {
-  .carousel-image {
-    width: 58vh;
-    height: 42vh;
-  }
-
-  .carousel-container {
-    top: 20%;
-    right: 6%;
-  }
-
-  .auth-buttons {
-    top: 10%;
-    right: 4%;
-    scale: 95%;
-  }
-
-  /* Figura Azul sobrepuesta */
-  .welcomeblue-rectangle {
-    transform: translateX(-12vh); /* Mover 2vh a la izquierda */
-  }
-
-  .welcomelogo {
-    width: 4.0%;
-    margin-left: 15%;
-    margin-top: 10%;
-  }
-}
-
-@media (max-width: 1450px) {
-  .carousel-image {
-    width: 55vh;
-    height: 40vh;
-  }
-
-  .carousel-container {
-    top: 20%;
-    right: 5%;
-  }
-
-  .auth-buttons {
-    top: 10%;
-    right: 3%;
-    scale: 94%;
-  }
-
-  /* Figura Azul sobrepuesta */
-  .welcomeblue-rectangle {
-    transform: translateX(-12vh); /* Mover 2vh a la izquierda */
-  }
-
-  .welcomelogo {
-    width: 3.8%;
-    margin-left: 15%;
-    margin-top: 10%;
-  }
-}
-
-@media (max-width: 1400px) {
-  .carousel-image {
-    width: 52vh;
-    height: 38vh;
-  }
-
-  .carousel-container {
-    top: 20%;
-    right: 4%;
-  }
-
-  .auth-buttons {
-    top: 10%;
-    right: 2%;
-
-  }
-
-  /* Figura Azul sobrepuesta */
-  .welcomeblue-rectangle {
-    transform: translateX(-12vh); /* Mover 2vh a la izquierda */
-  }
-
-  .welcomelogo {
-    width: 3.6%;
-    margin-left: 15%;
-    margin-top: 10%;
-  }
-}

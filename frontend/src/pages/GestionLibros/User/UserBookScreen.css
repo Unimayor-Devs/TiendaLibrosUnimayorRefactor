@@ -363,7 +363,6 @@
   border-radius: 4px;
 }
 
-/* Estilos Responsivos */
 @media (max-width: 1200px) {
   .book-container {
     max-width: 90vw;

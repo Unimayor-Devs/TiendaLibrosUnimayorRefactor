@@ -1,0 +1,11 @@
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 1440 900"
+  preserveAspectRatio="none"
+  className="welcomeblue-svg"
+>
+  <path
+    d="M0,900S443.32,850.5,690.44,820.94s331.771-20.292,393.336-200.967S1234.737,1.579,1234.737,1.579H0Z"
+    fill="#050254"
+  />
+</svg>
